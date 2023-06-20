@@ -2,11 +2,11 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import App from './App';
-import LoginPage from './pages/LoginPage';
-import SignupPage from './pages/SignupPage';
-import MatchPage from './pages/MatchPage';
-import SwipePage from './pages/SwipePage';
+import App from './App.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import SignupPage from './pages/SignupPage.jsx';
+import MatchPage from './pages/MatchPage.jsx';
+import SwipePage from './pages/SwipePage.jsx';
 
 const router = createBrowserRouter([
   {

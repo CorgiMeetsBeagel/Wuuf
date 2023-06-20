@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import MatchCard from '../components/MatchCard.js';
+import MatchCard from '../components/MatchCard.jsx';
 
 // create fetch request to get database info
 // will come in as an array of  objects
