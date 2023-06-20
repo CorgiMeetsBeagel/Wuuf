@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import Card from "../components/Card.js";
+import Card from "../components/Card.jsx";
 
 export default function SwipePage() {
   const [dog, setDog] = useState();
