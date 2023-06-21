@@ -13,6 +13,9 @@ router.get('/callback', (req, res) => {
   // The req.query object has the query params that were sent to this route.
   const requestToken = req.query.code
   
+
+
+
   axios({
     method: 'post',
     url: `https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${requestToken}`,
@@ -22,7 +25,7 @@ router.get('/callback', (req, res) => {
     }
   }).then((response) => {
     access_token = response.data.access_token
-    res.redirect('/success');
+    res.redirect('localhost:8080/swipe');
   })
 });
 
@@ -36,10 +39,16 @@ router.get('/success', function(req, res) {
       Authorization: 'token ' + access_token
     }
   }).then((response) => {
-    res.render('pages/success',{ userData: response.data });
+    console.log(response.text());
+    res.render('https://localhost:8080/swipe/swipe',{ userData: response.data });
   })
 });
 
+
+
+router.get('/login', function(req, res) {
+  res.redirect(`https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=http://localhost:8080/api/github/callback&scope=user:email`);
+})
 
 
 module.exports = router;
