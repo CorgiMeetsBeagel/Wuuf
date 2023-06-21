@@ -1,15 +1,15 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from '@reduxjs/toolkit';
 // import { user } from "pg/lib/defaults";
 
 const initialState = {
-  user: "",
-  currentProfile: "",
+  userName: '',
+  currentProfile: '',
   matches: [],
   profiles: [],
 };
 
 const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     setProfiles(state, action) {
