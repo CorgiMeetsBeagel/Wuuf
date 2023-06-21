@@ -37,21 +37,26 @@ controller.getOneDog =  (req, res, next) => {
 
 
 controller.createDog = (req, res, next) => {
-  const { name, userName, owner, breed, size, age, gender } = req.body;
-  try {
-    const stmt =  db.prepare(`INSERT INTO Pooch (id,userName,name,breed,size,age,gender) VALUES (?, ?,?, ?, ?, ?, ?) RETURNING *;`);
-    const result = stmt.run(uuidv4(), userName, name, breed, size, age, gender);
+
+  console.log(req.body)
+
+  return next();
+
+  // const { name, userName,  breed, size, age, gender } = req.body;
+  // try {
+  //   const stmt =  db.prepare(`INSERT INTO Pooch (id,userName,name,breed,size,age,gender) VALUES (?, ?,?, ?, ?, ?, ?) RETURNING *;`);
+  //   const result = stmt.run(uuidv4(), userName, name, breed, size, age, gender);
   
-    if (result.changes > 0) {
-      res.locals.changes = result.changes;
-      return next();
-    } else {
-    return next({error: 'nothing entered'});
-    }
-  } catch (err) {
-    console.log(err);
-    return next(err);
-  }
+  //   if (result.changes > 0) {
+  //     res.locals.changes = result.changes;
+  //     return next();
+  //   } else {
+  //   return next({error: 'nothing entered'});
+  //   }
+  // } catch (err) {
+  //   console.log(err);
+  //   return next(err);
+  // }
 }
 
 

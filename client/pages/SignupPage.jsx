@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 
 const initialValues = {
     name: "",
@@ -16,52 +16,99 @@ for (let i = 1; i <= 50; i++) {
 }
   
 export default function SignupPage() {
-    const username = useSelector(state => state.user.user);
-    const [values, setValues] = useState(initialValues);
+    // const username = useSelector(state => state.user.user);
+    //name, userName, owner, breed, size, age, gender
+    const [name, setName] = useState("");
+    const [username, setUsername] = useState("");
+    const [breed, setBreed] = useState("");
+    const [size, setSize] = useState("");
+    const [age, setAge] = useState("");
+    const [gender, setGender] = useState("");
+   
 
     const handleChange= (e) => {
         const { name, value } = e.target;
         // Files from target are in e.target.files which returns an object 'FileList'
         if (name === 'image') {
             console.log(e.target.files)
-            setValues({
-                ...values,
-                [name]: e.target.files[0]
-            })
-        } else {
-            setValues({
-              ...values,
-              [name]: value,
-            });
+            // setValues({
+            //     ...values,
+            //     [name]: e.target.files[0]
+            // })
         }
+        
+        if (name === 'sex') {
+            setSex(value);
+        }
+
+        if (name === 'age') {
+            setAge(value);
+        }
+
+        if (name === 'size') {
+            setSize(value);
+        }
+
+        if (name === 'breed') {
+            setBreed(value);
+        }
+
+        if (name === 'name') {
+            setName(value);
+        }
+
+        if (name === 'userName') {
+            setUsername(value);
+        }
+
+        
+
     };
 
-    const handleClick = () => {
-        // Check if all of the inputs are submitted, then we fetch
-        if (values.name && values.breed && values.age && values.size && values.sex && values.upload) {
-            fetch('/dog/', {
+    const handleClick = async () => {
+
+        const values = {
+            name,
+            username,
+            breed,
+            size,
+            age,
+            gender
+     }
+    
+        fetch('/api/dog/', {
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
                 method: 'POST',
-                body: JSON.stringify({username, ...values})
+                body: JSON.stringify(values)
             })
             .then(res => res.json())
             .then(res => console.log(res))
             .catch(error => console.log(error))
         }
-    }
+
+    //     // Check if all of the inputs are submitted, then we fetch
+    //     if (values.name && values.breed && values.age && values.size && values.sex && values.upload) {
+
+    // }
 
     return (
-        <div className='flex justify-center'>
+
+<div className='flex justify-center'>
+       
             <div className="flex flex-col items-center box-content h-1/3 w-1/2 pt-10 pb-4 px-20 border-2">
                 <h1 className='text-4xl mb-5'>Sign Up</h1>
                 <div className='my-3'>
                 <div>Username</div>
-                <input type="text" placeholder="Username" className="input input-bordered w-80 max-w-xs text-base" disabled />
+                <input type="text"  name="username" placeholder="Username" className="input input-bordered w-80 max-w-xs text-base" disabled />
                 </div>
                 <div className='my-3'>
-                    <input type="text" name='name' value={values.name} onChange={handleChange} placeholder="Name" className="input input-bordered input-info w-80 max-w-xs text-base" />
+                    <input type="text" name='name' value={name} onChange={handleChange} placeholder="Name" className="input input-bordered input-info w-80 max-w-xs text-base" />
                 </div>
                 <div className='my-3'>
-                    <select name='breed' value={values.breed} onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
+                    <select name='breed' value={breed} onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
                     <option disabled selected>Breed</option>
                     <option value="Mixed">Mixed</option>
                     <option value="Australian Shepherd">Australian Shepherd</option>
@@ -87,16 +134,16 @@ export default function SignupPage() {
                     </select>
                 </div>
                 <div className='my-3'>
-                    <select name='age' value={values.age} onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
+                    <select name='age' value={age} onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
                     <option disabled selected>Age</option>
                     {ageOptions}
                     </select>
                 </div>
                 {/* <div className='my-3'>
-                    <input type="text" name={size} value={values.size} onChange={handleChange} placeholder="Size" className="input input-bordered input-info w-80 max-w-xs text-base" />
+                    <input type="text" name={size} value={size} onChange={handleChange} placeholder="Size" className="input input-bordered input-info w-80 max-w-xs text-base" />
                 </div> */}
                 <div className='my-3'>
-                    <select name='size' value={values.size} onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
+                    <select name='size' value={size} onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
                     <option disabled selected>Size</option>
                     <option>Loved</option>
                     <option>Extra-Loved</option>
@@ -104,7 +151,7 @@ export default function SignupPage() {
                     </select>
                 </div>
                 <div className='my-3'>
-                    <select name='sex' value={values.sex} onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
+                    <select name='gender' value={gender} onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
                     <option disabled selected>Sex</option>
                     <option>Male</option>
                     <option>Female</option>
@@ -112,10 +159,14 @@ export default function SignupPage() {
                     </select>
                 </div>
                 <div className='my-3'>
-                    <input type="file" name='image' /*value={values.image}*/ onChange={handleChange} className="file-input file-input-bordered file-input-sm w-80 max-w-xs" />
+                    <input type="file" id="image" name='image' /*value={image}*/ onChange={handleChange} className="file-input file-input-bordered file-input-sm w-80 max-w-xs" />
                 </div>
                 <button onClick={handleClick} className="btn btn-info my-10">Create Account</button>
-            </div>
+                </div>
+
         </div>
+
+
+
     )
 }
