@@ -1,9 +1,10 @@
 require('dotenv').config();
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const path = require('path');
 const app = express();
 
-
+// const imageRoutes = require('./routes/imageRoutes');
 const oauth = require('./oauth/oauth');
 const dogRoutes = require('./routes/dogRoutes');
 const swipeRoutes = require('./routes/swipeRoutes');
@@ -12,7 +13,7 @@ const PORT = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(fileUpload());
  
 
 
@@ -24,6 +25,38 @@ app.use('/', express.static(path.join(__dirname, '../client/')));
 app.use('/dog',dogRoutes);
 app.use('/swipe',swipeRoutes);
 app.use('/github', oauth);
+// app.use('/image', imageRoutes);
+
+
+app.get('/test', (req, res) => {
+    res.status(200).sendFile(path.resolve(__dirname, '../test.html'));
+});
+
+
+app.post('/image', function(req, res) {
+  let sampleFile;
+  let uploadPath;
+
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  // The name of the input field (i.e. "image") is used to retrieve the uploaded file
+  sampleFile = req.files.image;
+  uploadPath = path.resolve(__dirname, '../public/uploads/', sampleFile.name);
+
+  
+
+
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv(uploadPath, function(err) {
+    if (err)
+      return res.status(500).send(err);
+
+    res.send('File uploaded!');
+  });
+});
+
 
 
 
