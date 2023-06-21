@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
-
-
 // console.log(process.env.CLIENTID);
 const clientID = process.env.CLIENTID;
 const clientSecret = process.env.SECRET;
@@ -41,3 +39,7 @@ router.get('/success', function(req, res) {
     res.render('pages/success',{ userData: response.data });
   })
 });
+
+
+
+module.exports = router;

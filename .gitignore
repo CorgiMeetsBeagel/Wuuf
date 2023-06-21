@@ -130,4 +130,5 @@ dist
 .pnp.*
 
 .DS_Store
-
+dev.db-shm
+dev.db-wal
