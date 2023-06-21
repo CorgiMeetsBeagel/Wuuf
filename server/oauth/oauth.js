@@ -5,15 +5,15 @@ const axios = require('axios');
 // console.log(process.env.CLIENTID);
 const clientID = process.env.CLIENTID;
 const clientSecret = process.env.SECRET;
+const callbackUrl = process.env.CALLBACK_URL
 
 
+let access_token;
 
 router.get('/callback', (req, res) => {
 
   // The req.query object has the query params that were sent to this route.
   const requestToken = req.query.code
-  
-
 
 
   axios({
@@ -25,29 +25,37 @@ router.get('/callback', (req, res) => {
     }
   }).then((response) => {
     access_token = response.data.access_token
-    res.redirect('localhost:8080/swipe');
+    
+    res.redirect('/github/success');
   })
 });
 
 
-router.get('/success', function(req, res) {
+router.get('/success',  function(req, res) {
+
 
   axios({
     method: 'get',
     url: `https://api.github.com/user`,
     headers: {
-      Authorization: 'token ' + access_token
+      Authorization: 'Bearer ' + access_token
     }
   }).then((response) => {
-    console.log(response.text());
-    res.render('https://localhost:8080/swipe/swipe',{ userData: response.data });
-  })
+    console.log(response.data);
+    res.redirect('/');
+  }).catch((error) => {
+    console.log('err',error);
+  });
+
+  
+ console.log('success',access_token);
+
 });
 
 
 
-router.get('/login', function(req, res) {
-  res.redirect(`https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=http://localhost:8080/api/github/callback&scope=user:email`);
+router.get('/login', function (req, res) {  
+  res.redirect(`https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${callbackUrl}&scope=user:email`);
 })
 
 

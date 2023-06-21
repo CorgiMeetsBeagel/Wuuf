@@ -1,10 +1,11 @@
 require('dotenv').config();
 const express = require('express');
+// const session = require('express-session');
 const fileUpload = require('express-fileupload');
 const path = require('path');
 const app = express();
 
-// const imageRoutes = require('./routes/imageRoutes');
+const matchesRoutes = require('./routes/matchesRoutes');
 const oauth = require('./oauth/oauth');
 const dogRoutes = require('./routes/dogRoutes');
 const swipeRoutes = require('./routes/swipeRoutes');
@@ -14,7 +15,13 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload());
- 
+// app.use(
+//   session(
+//     { 
+//       secret: process.env.SESSION_SECRET, 
+//       resave: false, 
+//       saveUninitialized: false 
+//     })); 
 
 
 
@@ -25,12 +32,15 @@ app.use('/', express.static(path.join(__dirname, '../client/')));
 app.use('/dog',dogRoutes);
 app.use('/swipe',swipeRoutes);
 app.use('/github', oauth);
-// app.use('/image', imageRoutes);
-
+app.use('/matches', matchesRoutes);
 
 app.get('/test', (req, res) => {
     res.status(200).sendFile(path.resolve(__dirname, '../test.html'));
 });
+
+
+
+
 
 
 app.post('/image', function(req, res) {
@@ -56,20 +66,6 @@ app.post('/image', function(req, res) {
     res.send('File uploaded!');
   });
 });
-
-
-
-
-
-// serve index.html
-// router.get('/matches', controller.getMatches, (req, res) => {
-//   return res.status(200).json(res.locals.matches);
-// });
-
-// router.get('/dogs', controller.getAllDogs, (req, res) => {
-//     return res.status(200).json(res.locals.listOfDogs);
-// });
-
 app.get('/*', (req, res) => {
     res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });

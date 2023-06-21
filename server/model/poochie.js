@@ -4,7 +4,7 @@ const db = new Database('./server/model/dev.db', { verbose: console.log });
 db.pragma('journal_mode = WAL');
 
 const poochCreationSql =
-  'CREATE TABLE IF NOT EXISTS "Pooch" ( "id" TEXT NOT NULL PRIMARY KEY, "userName" TEXT NOT NULL, "name" TEXT NOT NULL, "breed" TEXT, "size" TEXT, "age" INTEGER, "gender" TEXT NOT NULL, "CreatedOn" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, "DeletedOn" DATETIME);';
+  'CREATE TABLE IF NOT EXISTS "Pooch" ( "id" TEXT NOT NULL PRIMARY KEY, "userName" TEXT NOT NULL, "picture" TEXT, "name" TEXT NOT NULL, "breed" TEXT, "size" TEXT, "age" INTEGER, "gender" TEXT NOT NULL, "CreatedOn" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, "DeletedOn" DATETIME);';
 db.exec(poochCreationSql);
 
 
