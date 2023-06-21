@@ -2,9 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const app = express();
-// const oauth = require('./oauth/oauth.js');
 
 
+const oauth = require('./oauth/oauth');
 const dogRoutes = require('./routes/dogRoutes');
 const swipeRoutes = require('./routes/swipeRoutes');
 
@@ -23,7 +23,7 @@ app.use('/', express.static(path.join(__dirname, '../client/')));
 
 app.use('/dog',dogRoutes);
 app.use('/swipe',swipeRoutes);
-// app.use('/github', oauth);
+app.use('/github', oauth);
 
 
 
