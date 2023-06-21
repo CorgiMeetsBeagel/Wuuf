@@ -44,10 +44,16 @@ module.exports = {
     ],
   },
   devServer: {
-    port: 8080,
-    proxy: {
-      '/api/**': 'http://localhost:3000',
-    },
+    // static: {
+    //   directory: path.join(__dirname, './'),
+    // },
     historyApiFallback: true,
+    // hot: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        pathRewrite: { '^/api': '' },
+      },
+    },
   },
 };
