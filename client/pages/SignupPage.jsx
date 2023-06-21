@@ -41,7 +41,7 @@ export default function SignupPage() {
         if (values.name && values.breed && values.age && values.size && values.sex && values.upload) {
             fetch('/dog/', {
                 method: 'POST',
-                body: JSON.stringify({data, ...values})
+                body: JSON.stringify({username, ...values})
             })
             .then(res => res.json())
             .then(res => console.log(res))
