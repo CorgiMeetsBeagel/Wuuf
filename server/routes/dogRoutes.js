@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/',
     controller.getAllDogs,
     (req, res) => {
-        return res.status(200).send(res.locals.result);
+        return res.status(200).send(res.locals.allDogs);
     });
 
 router.get('/:id',
@@ -21,19 +21,19 @@ router.get('/:id',
 router.post('/',
     controller.createDog,
     (req, res) => {
-        return res.status(200).send("ok");
+        return res.status(200).send(res.locals.newDog);
     });
 
 router.put('/:id',
     controller.updateDog,
     (req, res) => {
-        return res.status(200).send(res.locals.listOfDogs);
+        return res.status(200).send('ok');
     });
 
-router.delete('/',
+router.delete('/:id',
     controller.deleteDog,
     (req, res) => {
-        return res.status(200).send(res.locals.listOfDogs);
+        return res.status(200).send(res.locals.deletedDog);
     });
 
 module.exports = router;
