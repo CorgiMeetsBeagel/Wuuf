@@ -64,12 +64,10 @@ export default function SignupPage() {
             .then(res => console.log(res))
             .catch(error => console.log(error))
         }
-        }
     }
 
     return (
-
-<div className='flex justify-center'>
+    <div className='flex justify-center'>
        
             <div className="flex flex-col items-center box-content h-1/3 w-1/2 pt-10 pb-4 px-20 border-2">
                 <h1 className='text-4xl mb-5'>Sign Up</h1>
@@ -114,9 +112,7 @@ export default function SignupPage() {
                 <button onClick={handleClick} className="btn btn-info my-10">Create Account</button>
                 </div>
 
-        </div>
-
-
-
+    </div>
     )
-}
+};
+
