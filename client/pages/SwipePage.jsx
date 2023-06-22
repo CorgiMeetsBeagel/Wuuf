@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Card from '../components/Card.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import userReducer, * as userActions from '../Slices/userSlice.js';
-import { useLoaderData } from 'react-router-dom';
+// import { useLoaderData } from 'react-router-dom';
 import { setProfiles, getProfile } from '../Slices/userSlice.js';
 
 export default function SwipePage() {
@@ -46,7 +46,7 @@ export default function SwipePage() {
     let matched;
     try {
       // Message the server and tell them whether or not a profile was liked
-      let response = await fetch('/api/dog/match', {
+      let response = await fetch('/api/swipe/match', {
         method: 'POST',
         headers: {
           // Accept: 'application/json',
