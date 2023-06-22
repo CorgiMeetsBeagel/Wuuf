@@ -24,7 +24,7 @@ for (const breed of breedArr) {
 }
   
 export default function SignupPage() {
-    // const username = useSelector(state => state.user.user);
+    // const username = useSelector(state => state.user.userName);
   
     // Username set for testing purposes only
     const username = 'Test Username';
@@ -75,7 +75,7 @@ export default function SignupPage() {
                 <h1 className='text-4xl mb-5'>Sign Up</h1>
                 <div className='my-3'>
                 <div>Username</div>
-                <input type="text"  name="username" placeholder="Username" className="input input-bordered w-80 max-w-xs text-base" disabled />
+                <input type="text"  name="username" placeholder={username} className="input input-bordered w-80 max-w-xs text-base" disabled />
                 </div>
                 <div className='my-3'>
                     <input type="text" name='name' value={values.name} onChange={handleChange} placeholder="Name" className="input input-bordered input-info w-80 max-w-xs text-base" />
