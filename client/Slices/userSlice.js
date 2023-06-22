@@ -3,7 +3,7 @@ import { createSlice, nanoid } from '@reduxjs/toolkit';
 
 const initialState = {
   userName: '',
-  currentProfile: '',
+  currentProfile: {},
   matches: [],
   profiles: [],
 };
