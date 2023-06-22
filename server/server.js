@@ -7,6 +7,7 @@ const app = express();
 const oauth = require('./oauth/oauth');
 const dogRoutes = require('./routes/dogRoutes');
 const swipeRoutes = require('./routes/swipeRoutes');
+const profileRoutes = require('./routes/profileRoutes')
 
 const PORT = 3000;
 
@@ -21,9 +22,10 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 app.use('/', express.static(path.join(__dirname, '../client/')));
 
 
-app.use('/dog',dogRoutes);
-app.use('/swipe',swipeRoutes);
-app.use('/github', oauth);
+app.use('/api/dog',dogRoutes);
+app.use('/api/getprofiles', profileRoutes);
+app.use('/api/swipe',swipeRoutes);
+app.use('/api/github', oauth);
 
 
 
