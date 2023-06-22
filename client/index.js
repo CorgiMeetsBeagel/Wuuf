@@ -6,12 +6,16 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
+// Import components
 import App from './App.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 import MatchPage from './pages/MatchPage.jsx';
 import SwipePage from './pages/SwipePage.jsx';
 
+import { matchesLoader } from './components/loaders.js';
+
+// Import CSS
 import '../styles.css';
 
 const router = createBrowserRouter([
@@ -33,6 +37,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/swipe',
+    loader: swiperLoader,
     element: <SwipePage />,
   },
   {
