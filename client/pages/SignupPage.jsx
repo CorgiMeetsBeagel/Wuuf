@@ -1,82 +1,58 @@
 import React, { useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const initialValues = {
     name: "",
     breed: "",
     age: "",
     size: "",
-    sex: "",
+    gender: "",
     image: ""
-};
+};       
 
 const ageOptions = [];
 for (let i = 1; i <= 50; i++) {
     ageOptions.push(<option value={i}>{i}</option>)
 }
+
+const breedArr = ['Mixed', 'Australian Shepherd', 'Beagle', 'Boxer', 'Bulldog', 'Cavalier King Charles Spaniel', 'Corgi', 'Dachshund', 'Doberman', 'French Bulldog', 'German Shepherd', 'Golden Retriever', 'Great Dane', 'Labrador Retriever', 'Miniature Schnauzer', 'Pointer', 'Poodle', 'Rottweiler', 'Shih Tzu', 'Samoyed','Siberian Husky', 'Yorkshire Terrier'];
+
+const breedOptions = [];
+
+for (const breed of breedArr) {
+    breedOptions.push(<option value={breed}>{breed}</option>)
+}
   
 export default function SignupPage() {
     // const username = useSelector(state => state.user.user);
-    //name, userName, owner, breed, size, age, gender
-    const [name, setName] = useState("");
-    const [username, setUsername] = useState("");
-    const [breed, setBreed] = useState("");
-    const [size, setSize] = useState("");
-    const [age, setAge] = useState("");
-    const [gender, setGender] = useState("");
-   
+  
+    // Username set for testing purposes only
+    const username = 'Test Username';
+
+    const [values, setValues] = useState(initialValues);
+
 
     const handleChange= (e) => {
         const { name, value } = e.target;
         // Files from target are in e.target.files which returns an object 'FileList'
         if (name === 'image') {
             console.log(e.target.files)
-            // setValues({
-            //     ...values,
-            //     [name]: e.target.files[0]
-            // })
+            setValues({
+                ...values,
+                [name]: e.target.files[0]
+            })
+        } else {
+            setValues({
+              ...values,
+              [name]: value,
+            });
         }
-        
-        if (name === 'sex') {
-            setSex(value);
-        }
-
-        if (name === 'age') {
-            setAge(value);
-        }
-
-        if (name === 'size') {
-            setSize(value);
-        }
-
-        if (name === 'breed') {
-            setBreed(value);
-        }
-
-        if (name === 'name') {
-            setName(value);
-        }
-
-        if (name === 'userName') {
-            setUsername(value);
-        }
-
-        
-
     };
 
-    const handleClick = async () => {
-
-        const values = {
-            name,
-            username,
-            breed,
-            size,
-            age,
-            gender
-     }
-    
-        fetch('/api/dog/', {
+    const handleClick = () => {
+        // Check if all of the inputs are submitted, then we fetch
+        if (values.name && values.breed && values.age && values.size && values.sex && values.upload) {
+             fetch('/api/dog/', {
                 headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -88,11 +64,8 @@ export default function SignupPage() {
             .then(res => console.log(res))
             .catch(error => console.log(error))
         }
-
-    //     // Check if all of the inputs are submitted, then we fetch
-    //     if (values.name && values.breed && values.age && values.size && values.sex && values.upload) {
-
-    // }
+        }
+    }
 
     return (
 
@@ -108,54 +81,31 @@ export default function SignupPage() {
                     <input type="text" name='name' value={name} onChange={handleChange} placeholder="Name" className="input input-bordered input-info w-80 max-w-xs text-base" />
                 </div>
                 <div className='my-3'>
-                    <select name='breed' value={breed} onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
+                    <select name='breed' onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
                     <option disabled selected>Breed</option>
-                    <option value="Mixed">Mixed</option>
-                    <option value="Australian Shepherd">Australian Shepherd</option>
-                    <option value="Beagle">Beagle</option>
-                    <option value="Boxer">Boxer</option>
-                    <option value="Bulldog">Bulldog</option>
-                    <option value="Cavalier King Charles Spaniel">Cavalier King Charles Spaniel</option>
-                    <option value="Corgi">Corgi</option>
-                    <option value="Dachshund">Dachshund</option>
-                    <option value="Doberman">Doberman</option>
-                    <option value="French Bulldog">French Bulldog</option>
-                    <option value="German Shepherd">German Shepherd</option>
-                    <option value="Golden Retriever">Golden Retriever</option>
-                    <option value="Great Dane">Great Dane</option>
-                    <option value="Labrador Retriever">Labrador Retriever</option>
-                    <option value="Miniature Schnauzer">Miniature Schnauzer</option>
-                    <option value="Pointer">Pointer</option>
-                    <option value="Poodle">Poodle</option>
-                    <option value="Rottweiler">Rottweiler</option>
-                    <option value="Shih Tzu">Shih Tzu</option>
-                    <option value="Siberian Husky">Siberian Husky</option>
-                    <option value="Yorkshire Terrier">Yorkshire Terrier</option>
+                    {breedOptions}
                     </select>
                 </div>
                 <div className='my-3'>
-                    <select name='age' value={age} onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
+                    <select name='age' onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
                     <option disabled selected>Age</option>
                     {ageOptions}
                     </select>
                 </div>
-                {/* <div className='my-3'>
-                    <input type="text" name={size} value={size} onChange={handleChange} placeholder="Size" className="input input-bordered input-info w-80 max-w-xs text-base" />
-                </div> */}
                 <div className='my-3'>
-                    <select name='size' value={size} onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
+                    <select name='size' onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
                     <option disabled selected>Size</option>
-                    <option>Loved</option>
-                    <option>Extra-Loved</option>
-                    <option>Extra-Extra-Loved</option>
+                    <option value="Loved">Loved</option>
+                    <option value="Much-Loved">Much-Loved</option>
+                    <option value="Very-Loved">Very-Loved</option>
                     </select>
                 </div>
                 <div className='my-3'>
-                    <select name='gender' value={gender} onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
+                    <select name='gender' onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
                     <option disabled selected>Sex</option>
-                    <option>Male</option>
-                    <option>Female</option>
-                    <option>Unspecified</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Unspecified">Unspecified</option>
                     </select>
                 </div>
                 <div className='my-3'>

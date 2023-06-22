@@ -1,11 +1,11 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import MatchCard from '../components/MatchCard.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import SwipePage from '../pages/SwipePage.jsx';
 
-// create fetch request to get database info
-// will come in as an array of  objects
 
 export default function MatchPage() {
+
   const [dogs, setDogs] = useState([]);
   useEffect(() => {
     const fetchDogs = async () => {
@@ -26,75 +26,54 @@ export default function MatchPage() {
     fetchDogs();
   }, []);
 
+  // const userMatches = useSelector(state => state.user.matches)
+
+  // Dummy array for testing purposes only
+  const userMatches = [];
+  for (let i = 0; i < 50; i++) {
+    userMatches.push({
+      id: `test-id-${i}`,
+      name: `test-name-${i}`,
+      breed: `test-breed-${i}`,
+      age: `test-age-${i}`,
+      size: `test-size-${i}`,
+      sex: `test-sex-${i}`,
+      image: `test-image-${i}`,
+    })
+  }
+
   return (
-    <div>
-      <h2>Match Page</h2>
-      {dogs.map((doggos, index) => (
-        <MatchCard
-          key={index}
-          name={doggos.name}
-          breed={doggos.breed}
-          size={doggos.size}
-          age={doggos.age}
-          gender={doggos.gender}
-          owner={doggos.owner}
-          calendarLink={doggos.calendarLink}
-        />
-      ))}
+    <div className='flex h-screen'>
+      <div className='flex-initial w-3/4'>
+        {/* <SwipePage /> */}
+        <h1>Sample Header</h1>
+        <p>Sample Paragraph</p>
+      </div>
+      <div className='flex-initial w-1/4 overflow-y-auto'>
+        {userMatches.map(match => {
+          return (
+            <div className="collapse collapse-arrow bg-base-200">
+              <input type="radio" name="my-accordion-2" checked="checked" /> 
+              <div className="collapse-title text-xl font-medium">
+                {/* Might have to change property of match depending on response from server */}
+                {match.image} {match.name}
+              </div>
+              <div className="collapse-content"> 
+              {/* Might have to change property of match depending on response from server */}
+                <p>{match.id}</p>
+                <p>{match.breed}</p>
+                <p>{match.age}</p>
+                <p>{match.size}</p>
+                <p>{match.sex}</p>
+              </div>
+            </div>
+          )
+        })
+        }
+      </div>
     </div>
   );
 }
 
 
- // const dummyArray = [
-  //   {
-  //     name: 'Lula',
-  //     owner: 'Laura',
-  //     zip: '10024',
-  //     breed: 'Labrador Retriever',
-  //     size: 'Medium',
-  //     gender: 'Female',
-  //     age: '5',
-  //     calendarLink: 'https://calendar.google.com',
-  //   },
-  //   {
-  //     name: 'Bingo',
-  //     owner: 'Kelsey',
-  //     zip: '10538',
-  //     breed: 'Brittany Spaniel',
-  //     size: 'Medium',
-  //     gender: 'Male',
-  //     age: '7',
-  //     calendarLink: 'https://calendar.google.com',
-  //   },
-  //   {
-  //     name: 'Blue',
-  //     owner: 'Sylvia',
-  //     zip: '10005',
-  //     breed: 'Pitbull Mix',
-  //     size: 'Large',
-  //     gender: 'Male',
-  //     age: '6',
-  //     calendarLink: 'https://calendar.google.com',
-  //   },
-  //   {
-  //     name: 'Quinn',
-  //     owner: 'Hallory',
-  //     zip: '91602',
-  //     breed: 'Terrier Mix',
-  //     size: 'Small',
-  //     gender: 'Female',
-  //     age: '5',
-  //     calendarLink: 'https://calendar.google.com',
-  //   },
-  //   {
-  //     name: 'Wally',
-  //     owner: 'Tianna',
-  //     zip: '98105',
-  //     breed: 'Golden Retriever',
-  //     size: 'Large',
-  //     gender: 'Male',
-  //     age: '1',
-  //     calendarLink: 'https://calendar.google.com',
-  //   },
-  // ];
+ 
