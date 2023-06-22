@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import userReducer, * as userActions from '../Slices/userSlice.js';
 // import { useLoaderData } from 'react-router-dom';
 import { setProfiles, getProfile } from '../Slices/userSlice.js';
+import { makeMatch } from '../Slices/userSlice.js';
 
 export default function SwipePage() {
   const dispatch = useDispatch();
@@ -58,12 +59,15 @@ export default function SwipePage() {
       // Expect a response { matched: true/false }
       response = await response.json();
       matched = response.result;
+
+      // If there was a match
+      if (matched)
+        // Store it in redux, thus re-rendering the match page
+        dispatch((actualDispatch, getState) => {
+          actualDispatch(makeMatch({ user: matched }));
+        });
     } catch (e) {
       matched = false;
-    }
-    if (matched) {
-      // Add to matches logic
-      alert('Hey, you matched!');
     }
     // Set up the next profile
     dispatch(nextProfile);
