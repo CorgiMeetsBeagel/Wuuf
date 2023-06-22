@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
-// const session = require('express-session');
+const session = require('express-session');
+const store = require('better-express-store');
 const fileUpload = require('express-fileupload');
 const path = require('path');
 const app = express();
@@ -15,13 +16,15 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload());
-// app.use(
-//   session(
-//     { 
-//       secret: process.env.SESSION_SECRET, 
-//       resave: false, 
-//       saveUninitialized: false 
-//     })); 
+
+app.use(session({
+  secret: 'your own secret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: 'auto' },
+  // change dbPath to the path to your database file
+  store: store({  dbPath: './server/model/sess.db'})
+}));
 
 
 
