@@ -44,12 +44,12 @@ export default function MatchPage() {
 
   return (
     <div className='flex h-screen'>
-      <div className='flex-initial w-3/4'>
+      <div className='flex-1 w-3/4 justify-center'>
         <SwipePage />
         {/* <h1>Sample Header</h1>
         <p>Sample Paragraph</p> */}
       </div>
-      <div className='flex-initial w-1/4 overflow-y-auto'>
+      <div className='flex-initial w-1/4 overflow-y-auto bg-slate-100'>
         {userMatches.map(match => {
           return (
             <div className="collapse collapse-arrow bg-base-200">

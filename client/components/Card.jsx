@@ -1,7 +1,7 @@
 import React from 'react';
 export default function Card({ name, breed, age, size }) {
   return (
-    <div className="card">
+    <div className="">
       <p>name: {name}</p>
       <p>breed: {breed}</p>
       <p>age: {age} </p>
