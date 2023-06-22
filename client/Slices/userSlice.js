@@ -14,7 +14,7 @@ const userSlice = createSlice({
   reducers: {
     setProfiles(state, action) {
       state.profiles = action.payload.profiles;
-      currentProfile = state.profiles.pop();
+      state.currentProfile = state.profiles.pop();
     },
     makeMatch(state, action) {
       state.matches.push(action.payload.user);
