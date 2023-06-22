@@ -6,10 +6,10 @@ const router = express.Router();
 //     res.status(200).send(res.locals.user); 
 // })
 
-router.post('/',
+router.get('/',
     controller.match,
     (req, res) => {
-        return res.status(200).send("ok");
+        return res.status(200).json(res.locals.result);
 })
 
 module.exports = router;

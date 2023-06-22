@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const db = require('../model/poochie.js');
 
-// console.log(process.env.CLIENTID);
 const clientID = process.env.CLIENTID;
 const clientSecret = process.env.SECRET;
 const callbackUrl = process.env.CALLBACK_URL
@@ -24,8 +24,7 @@ router.get('/callback', (req, res) => {
       accept: 'application/json'
     }
   }).then((response) => {
-    access_token = response.data.access_token
-    
+    access_token = response.data.access_token;
     res.redirect('/github/success');
   })
 });
@@ -41,14 +40,20 @@ router.get('/success',  function(req, res) {
       Authorization: 'Bearer ' + access_token
     }
   }).then((response) => {
-    console.log(response.data);
-    res.redirect('/');
+    req.session.user = response.data.name;
+
+if (userRegistered(req.session.user)) {
+  res.redirect('http://localhost:8080/match');
+} else {
+  res.redirect('http://localhost:8080/signup?user=' + req.session.user);
+}
+
+
   }).catch((error) => {
     console.log('err',error);
   });
 
   
- console.log('success',access_token);
 
 });
 
@@ -57,6 +62,18 @@ router.get('/success',  function(req, res) {
 router.get('/login', function (req, res) {  
   res.redirect(`https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${callbackUrl}&scope=user:email`);
 })
+
+
+function userRegistered(user) {
+
+    const stmt =  db.prepare('SELECT * FROM Pooch WHERE userName = ?;');
+    const result = stmt.all(user);
+    console.log(result)
+    
+
+return result.length > 0
+
+}
 
 
 module.exports = router;

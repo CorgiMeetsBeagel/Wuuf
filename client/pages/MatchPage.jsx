@@ -6,6 +6,26 @@ import SwipePage from '../pages/SwipePage.jsx';
 
 export default function MatchPage() {
 
+  const [dogs, setDogs] = useState([]);
+  useEffect(() => {
+    const fetchDogs = async () => {
+      try {
+
+   const waitDogs = await  fetch('/api/matches/', {
+                method: 'GET',
+            });
+        const dogs = await waitDogs.json();
+        // console.log('Dogs array: ', dogs);
+        setDogs(dogs);
+        
+      }
+      catch (err) {
+        console.log('There was an error fetching data: ', err);
+      }
+    };
+    fetchDogs();
+  }, []);
+
   // const userMatches = useSelector(state => state.user.matches)
 
   // Dummy array for testing purposes only

@@ -20,13 +20,13 @@ const db = require('../model/poochie.js');
 
 
 controller.match =  (req, res, next) => {
-//gets an array of only ONE potential match
+//gets an array of possible matches
   
   try {
     const { name, userName, breed, size, age, gender } = req.body;
     const stmt =  db.prepare('SELECT * FROM Pooch WHERE DeletedOn IS NULL;');
     const result = stmt.all();
-    console.log(result)
+    // console.log(result)
     res.locals.result = result;
     return next();
 

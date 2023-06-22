@@ -6,9 +6,9 @@ const initialValues = {
     breed: "",
     age: "",
     size: "",
-    sex: "",
+    gender: "",
     image: ""
-};
+};       
 
 const ageOptions = [];
 for (let i = 1; i <= 50; i++) {
@@ -25,7 +25,12 @@ for (const breed of breedArr) {
   
 export default function SignupPage() {
     // const username = useSelector(state => state.user.user);
+  
+    // Username set for testing purposes only
+    const username = 'Test Username';
+
     const [values, setValues] = useState(initialValues);
+
 
     const handleChange= (e) => {
         const { name, value } = e.target;
@@ -46,28 +51,34 @@ export default function SignupPage() {
 
     const handleClick = () => {
         // Check if all of the inputs are submitted, then we fetch
-        // if (values.name && values.breed && values.age && values.size && values.sex && values.upload) {
-            // console.log(values);
-            // fetch('/dog/', {
-            //     method: 'POST',
-            //     body: JSON.stringify({username, ...values})
-            // })
-            // .then(res => res.json())
-            // .then(res => console.log(res))
-            // .catch(error => console.log(error))
-        // }
+        if (values.name && values.breed && values.age && values.size && values.sex && values.upload) {
+             fetch('/api/dog/', {
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(values)
+            })
+            .then(res => res.json())
+            .then(res => console.log(res))
+            .catch(error => console.log(error))
+        }
+        }
     }
 
     return (
-        <div className='flex justify-center'>
+
+<div className='flex justify-center'>
+       
             <div className="flex flex-col items-center box-content h-1/3 w-1/2 pt-10 pb-4 px-20 border-2">
                 <h1 className='text-4xl mb-5'>Sign Up</h1>
                 <div className='my-3'>
                 <div>Username</div>
-                <input type="text" placeholder="Username" className="input input-bordered w-80 max-w-xs text-base" disabled />
+                <input type="text"  name="username" placeholder="Username" className="input input-bordered w-80 max-w-xs text-base" disabled />
                 </div>
                 <div className='my-3'>
-                    <input type="text" name='name' value={values.name} onChange={handleChange} placeholder="Name" className="input input-bordered input-info w-80 max-w-xs text-base" />
+                    <input type="text" name='name' value={name} onChange={handleChange} placeholder="Name" className="input input-bordered input-info w-80 max-w-xs text-base" />
                 </div>
                 <div className='my-3'>
                     <select name='breed' onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
@@ -81,30 +92,31 @@ export default function SignupPage() {
                     {ageOptions}
                     </select>
                 </div>
-                {/* <div className='my-3'>
-                    <input type="text" name={size} value={values.size} onChange={handleChange} placeholder="Size" className="input input-bordered input-info w-80 max-w-xs text-base" />
-                </div> */}
                 <div className='my-3'>
                     <select name='size' onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
                     <option disabled selected>Size</option>
-                    <option>Loved</option>
-                    <option>Much-Loved</option>
-                    <option>Very-Loved</option>
+                    <option value="Loved">Loved</option>
+                    <option value="Much-Loved">Much-Loved</option>
+                    <option value="Very-Loved">Very-Loved</option>
                     </select>
                 </div>
                 <div className='my-3'>
-                    <select name='sex' onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
+                    <select name='gender' onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
                     <option disabled selected>Sex</option>
-                    <option>Male</option>
-                    <option>Female</option>
-                    <option>Unspecified</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Unspecified">Unspecified</option>
                     </select>
                 </div>
                 <div className='my-3'>
-                    <input type="file" name='image' /*value={values.image}*/ onChange={handleChange} className="file-input file-input-bordered file-input-sm w-80 max-w-xs" />
+                    <input type="file" id="image" name='image' /*value={image}*/ onChange={handleChange} className="file-input file-input-bordered file-input-sm w-80 max-w-xs" />
                 </div>
                 <button onClick={handleClick} className="btn btn-info my-10">Create Account</button>
-            </div>
+                </div>
+
         </div>
+
+
+
     )
 }
