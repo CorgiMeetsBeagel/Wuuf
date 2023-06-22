@@ -4,6 +4,7 @@ import Card from '../components/Card.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import userReducer, * as userActions from '../Slices/userSlice.js';
 import { useLoaderData } from 'react-router-dom';
+import { setProfiles } from '../Slices/userSlice.js';
 
 export default function SwipePage() {
   const dispatch = useDispatch();
