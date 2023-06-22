@@ -25,5 +25,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { getProfiles, makeMatch, getProfile } = userSlice.actions;
+export const { getProfile, makeMatch, setProfiles } = userSlice.actions;
 export default userSlice.reducer;
