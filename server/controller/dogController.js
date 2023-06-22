@@ -8,7 +8,10 @@ controller.getAllDogs =  (req, res, next) => {
 
   try {
     const { name, userName, breed, size, age, gender } = req.body;
-    const stmt =  db.prepare('SELECT * FROM Pooch WHERE DeletedOn IS NULL;');
+    const stmt =  db.prepare(`SELECT * 
+    FROM Pooch 
+    WHERE DeletedOn IS NULL
+    ;`);
     const result = stmt.all();
     console.log(result)
     res.locals.allDogs = result;
@@ -45,7 +48,7 @@ controller.createDog = (req, res, next) => {
   const { name, userName, breed, size, age, gender } = req.body;
   userName = req.session.user;
   try {
-    const stmt =  db.prepare(`INSERT INTO Pooch (id,userName,name,breed,size,age,gender) VALUES (?, ?,?, ?, ?, ?, ?) RETURNING *;`);
+    const stmt =  db.prepare(`INSERT INTO Pooch (id, userName,name, breed, size, age, gender) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING *;`);
     const result = stmt.run(uuidv4(), userName, name, breed, size, age, gender);
   
     if (result.changes > 0) {
@@ -81,7 +84,7 @@ controller.updateDog =  (req, res, next) => {
 
     const { userName, name, owner, breed, size, age, gender } = req.body;
     const stmt = db.prepare(`UPDATE pooch SET (name, userName, owner, breed, size, age, gender) VALUES (?, ?, ?, ?, ?, ?, ?) WHERE id = ?`)
-    const update = stmt.run(name, userName, owner, breed, size, age, gender, id);
+    const update = stmt.run(name, userName, owner, breed, size, age, gender, id); 
 
 
   return next();

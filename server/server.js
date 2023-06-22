@@ -11,6 +11,7 @@ const matchesRoutes = require('./routes/matchesRoutes');
 const oauth = require('./oauth/oauth');
 const dogRoutes = require('./routes/dogRoutes');
 const swipeRoutes = require('./routes/swipeRoutes');
+const profileRoutes = require('./routes/profileRoutes')
 
 const PORT = 3000;
 
@@ -55,15 +56,15 @@ app.get('/', isAuthenticated, (req, res) => {
 
 
 
-app.use('/dog',dogRoutes);
-app.use('/swipe',swipeRoutes);
-app.use('/github', oauth);
-app.use('/matches',isAuthenticated, matchesRoutes);
+
+app.use('/api/dog',dogRoutes);
+app.use('/api/getprofiles', profileRoutes);
+app.use('/api/swipe',swipeRoutes);
+app.use('/api/github', oauth);
 
 app.get('/test', (req, res) => {
     res.status(200).sendFile(path.resolve(__dirname, '../test.html'));
 });
-
 
 
 //s%3A2973e258-2c6c-4cea-96a4-4fac5ce2c823.U0nF6jAmqOA5YlJnK97EfmVkq5VpknIDpi12oJXzbFY
