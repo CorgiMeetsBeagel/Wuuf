@@ -99,23 +99,21 @@ export default function SwipePage() {
   }, []);
 
   return (
-    <div>
+    <div className='flex-col bg-slate-100 min-h-screen'>
       <h3>Swipe Page</h3>
-      <Card {...currentProfile} />
-      <span>
-        <button
-          className="btn btn-primary"
-          onClick={() => sendSwipeResults(false)}
-        >
-          No Paw
+      <div className=''>
+        <Card {...currentProfile} />
+      </div>
+      <div className='flex justify-content'>
+        <button className="btn btn-primary w-1/3 m-1" onClick={() => sendSwipeResults(false)}>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+           No Paw
         </button>
-        <button
-          className="btn btn-primary"
-          onClick={() => sendSwipeResults(true)}
-        >
-          Paw
+        <button className="btn btn-primary w-1/3 m-1" onClick={() => sendSwipeResults(true)}>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+           Paw
         </button>
-      </span>
+      </div>
     </div>
   );
 }
