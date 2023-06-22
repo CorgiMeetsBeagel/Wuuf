@@ -19,10 +19,10 @@ import { swiperLoader } from './loaders.js';
 import '../styles.css';
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-  },
+  // {
+  //   path: '/',
+  //   element: <App />,
+  // },
   {
     path: '/login',
     element: <LoginPage />,
