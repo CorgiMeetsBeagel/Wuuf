@@ -5,7 +5,7 @@ export default function Card({ name, breed, age, size }) {
       <p>name: {name}</p>
       <p>breed: {breed}</p>
       <p>age: {age} </p>
-      <p>size: {age} </p>
+      <p>size: {size} </p>
     </div>
   );
 }
