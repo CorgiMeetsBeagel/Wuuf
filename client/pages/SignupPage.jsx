@@ -14,9 +14,17 @@ const ageOptions = [];
 for (let i = 1; i <= 50; i++) {
     ageOptions.push(<option value={i}>{i}</option>)
 }
+
+const breedArr = ['Mixed', 'Australian Shepherd', 'Beagle', 'Boxer', 'Bulldog', 'Cavalier King Charles Spaniel', 'Corgi', 'Dachshund', 'Doberman', 'French Bulldog', 'German Shepherd', 'Golden Retriever', 'Great Dane', 'Labrador Retriever', 'Miniature Schnauzer', 'Pointer', 'Poodle', 'Rottweiler', 'Shih Tzu', 'Samoyed','Siberian Husky', 'Yorkshire Terrier'];
+
+const breedOptions = [];
+
+for (const breed of breedArr) {
+    breedOptions.push(<option value={breed}>{breed}</option>)
+}
   
 export default function SignupPage() {
-    const username = useSelector(state => state.user.user);
+    // const username = useSelector(state => state.user.user);
     const [values, setValues] = useState(initialValues);
 
     const handleChange= (e) => {
@@ -38,15 +46,16 @@ export default function SignupPage() {
 
     const handleClick = () => {
         // Check if all of the inputs are submitted, then we fetch
-        if (values.name && values.breed && values.age && values.size && values.sex && values.upload) {
-            fetch('/dog/', {
-                method: 'POST',
-                body: JSON.stringify({username, ...values})
-            })
-            .then(res => res.json())
-            .then(res => console.log(res))
-            .catch(error => console.log(error))
-        }
+        // if (values.name && values.breed && values.age && values.size && values.sex && values.upload) {
+            // console.log(values);
+            // fetch('/dog/', {
+            //     method: 'POST',
+            //     body: JSON.stringify({username, ...values})
+            // })
+            // .then(res => res.json())
+            // .then(res => console.log(res))
+            // .catch(error => console.log(error))
+        // }
     }
 
     return (
@@ -61,33 +70,13 @@ export default function SignupPage() {
                     <input type="text" name='name' value={values.name} onChange={handleChange} placeholder="Name" className="input input-bordered input-info w-80 max-w-xs text-base" />
                 </div>
                 <div className='my-3'>
-                    <select name='breed' value={values.breed} onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
+                    <select name='breed' onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
                     <option disabled selected>Breed</option>
-                    <option value="Mixed">Mixed</option>
-                    <option value="Australian Shepherd">Australian Shepherd</option>
-                    <option value="Beagle">Beagle</option>
-                    <option value="Boxer">Boxer</option>
-                    <option value="Bulldog">Bulldog</option>
-                    <option value="Cavalier King Charles Spaniel">Cavalier King Charles Spaniel</option>
-                    <option value="Corgi">Corgi</option>
-                    <option value="Dachshund">Dachshund</option>
-                    <option value="Doberman">Doberman</option>
-                    <option value="French Bulldog">French Bulldog</option>
-                    <option value="German Shepherd">German Shepherd</option>
-                    <option value="Golden Retriever">Golden Retriever</option>
-                    <option value="Great Dane">Great Dane</option>
-                    <option value="Labrador Retriever">Labrador Retriever</option>
-                    <option value="Miniature Schnauzer">Miniature Schnauzer</option>
-                    <option value="Pointer">Pointer</option>
-                    <option value="Poodle">Poodle</option>
-                    <option value="Rottweiler">Rottweiler</option>
-                    <option value="Shih Tzu">Shih Tzu</option>
-                    <option value="Siberian Husky">Siberian Husky</option>
-                    <option value="Yorkshire Terrier">Yorkshire Terrier</option>
+                    {breedOptions}
                     </select>
                 </div>
                 <div className='my-3'>
-                    <select name='age' value={values.age} onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
+                    <select name='age' onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
                     <option disabled selected>Age</option>
                     {ageOptions}
                     </select>
@@ -96,15 +85,15 @@ export default function SignupPage() {
                     <input type="text" name={size} value={values.size} onChange={handleChange} placeholder="Size" className="input input-bordered input-info w-80 max-w-xs text-base" />
                 </div> */}
                 <div className='my-3'>
-                    <select name='size' value={values.size} onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
+                    <select name='size' onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
                     <option disabled selected>Size</option>
                     <option>Loved</option>
-                    <option>Extra-Loved</option>
-                    <option>Extra-Extra-Loved</option>
+                    <option>Much-Loved</option>
+                    <option>Very-Loved</option>
                     </select>
                 </div>
                 <div className='my-3'>
-                    <select name='sex' value={values.sex} onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
+                    <select name='sex' onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
                     <option disabled selected>Sex</option>
                     <option>Male</option>
                     <option>Female</option>

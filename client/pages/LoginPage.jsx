@@ -12,8 +12,6 @@ export default function LoginPage() {
             style={{ backgroundColor: '#DB4437' }}
             href={''}
             role="button"
-            //   data-mdb-ripple="true"
-            //   data-mdb-ripple-color="light"
           >
             Continue with Google
           </a>
@@ -25,8 +23,6 @@ export default function LoginPage() {
             style={{ backgroundColor: '#4267B2' }}
             href={''}
             role="button"
-            //   data-mdb-ripple="true"
-            //   data-mdb-ripple-color="light"
           >
             Continue with Facebook
           </a>
@@ -38,8 +34,6 @@ export default function LoginPage() {
             style={{ backgroundColor: '#171515' }}
             href={'/api/github/login'}
             role="button"
-            //   data-mdb-ripple="true"
-            //   data-mdb-ripple-color="light"
           >
             Continue with Github
           </a>
