@@ -1,29 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import Card from "../components/Card.jsx";
+import Card from '../components/Card.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import userReducer, * as userActions from '../Slices/userSlice.js';
+import { useLoaderData } from 'react-router-dom';
 
 export default function SwipePage() {
-  const [dog, setDog] = useState();
-  const [i, setI] = useState(0);
+  const dispatch = useDispatch();
+  const currentProfile = useSelector((state) => state.user.currentProfile);
+  const profiles = useSelector((states) => state.user.profiles);
 
   useEffect(() => {
-    fetch("URL", {
-      method: "GET",
-    })
-      .then((data) => {
-        data.json();
-      })
-      .then(setDog(data));
+    const newProfiles = useLoaderData();
+    dispatch((actualDispatch, newProfiles) => {
+      actualDispatch(setProfiles({ profiles }));
+    });
   }, []);
-
-  function handleChangeDog() {
-    setI(i + 1);
-  }
 
   return (
     <div>
       <h3>Swipe Page</h3>
-      <Card dogInf={dog[i]} />
+      <Card {...currentProfile} />
+      <span>
+        <button className="btn btn-primary" onClick={noPaws}>
+          No Paw
+        </button>
+        <button className="btn btn-primary" onClick={paws}>
+          Paw
+        </button>
+      </span>
     </div>
   );
 }

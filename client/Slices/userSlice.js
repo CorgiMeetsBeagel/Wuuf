@@ -1,24 +1,29 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
-import { user } from "pg/lib/defaults";
+import { createSlice, nanoid } from '@reduxjs/toolkit';
+// import { user } from "pg/lib/defaults";
 
 const initialState = {
-  user: "",
+  userName: '',
+  currentProfile: '',
   matches: [],
   profiles: [],
 };
 
 const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
-    getProfiles(state, action) {
+    setProfiles(state, action) {
       state.profiles = action.payload.profiles;
+      currentProfile = state.profiles.pop();
     },
-    match(state, action) {
+    makeMatch(state, action) {
       state.matches.push(action.payload.user);
+    },
+    getProfile(state) {
+      state.currentProfile = state.profiles.pop();
     },
   },
 });
 
-export const { getProfiles, match } = userSlice.actions;
+export const { getProfile, makeMatch, setProfiles } = userSlice.actions;
 export default userSlice.reducer;

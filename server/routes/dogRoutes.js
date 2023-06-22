@@ -21,6 +21,9 @@ router.get('/:id',
 router.post('/',
     controller.createDog,
     (req, res) => {
+
+
+        
         return res.status(200).send(res.locals.newDog);
     });
 

@@ -40,7 +40,13 @@ controller.getOneDog =  (req, res, next) => {
 
 
 controller.createDog = (req, res, next) => {
-  const { name, userName, owner, breed, size, age, gender } = req.body;
+
+  console.log(req.body)
+
+  // return next();
+
+  const { name, userName, breed, size, age, gender } = req.body;
+  userName = req.session.user;
   try {
     const stmt =  db.prepare(`INSERT INTO Pooch (id, userName,name, breed, size, age, gender) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING *;`);
     const result = stmt.run(uuidv4(), userName, name, breed, size, age, gender);
