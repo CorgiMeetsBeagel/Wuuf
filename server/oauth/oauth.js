@@ -43,7 +43,7 @@ router.get('/success',  function(req, res) {
     req.session.user = response.data.name;
 
 if (userRegistered(req.session.user)) {
-  res.redirect('http://localhost:8080/matches');
+  res.redirect('http://localhost:8080/matches?username=' + req.session.user);
 } else {
   res.redirect('http://localhost:8080/signup');
 }
