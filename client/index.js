@@ -1,10 +1,14 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { createRoot } from 'react-dom/client';
 import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
 } from 'react-router-dom';
+
+// Import redux store
+import store from './store.js';
 
 // Import components
 import App from './App.jsx';
@@ -13,7 +17,8 @@ import SignupPage from './pages/SignupPage.jsx';
 import MatchPage from './pages/MatchPage.jsx';
 import SwipePage from './pages/SwipePage.jsx';
 
-import { swiperLoader } from './loaders.js';
+// Import loaders
+// import { swiperLoader } from './loaders.js';
 
 // Import CSS
 import '../styles.css';
@@ -37,7 +42,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/swipe',
-    loader: swiperLoader,
+    // loader: swiperLoader,
     element: <SwipePage />,
   },
   {
@@ -49,6 +54,8 @@ const router = createBrowserRouter([
 const root = createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
