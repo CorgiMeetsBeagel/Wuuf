@@ -6,25 +6,25 @@ import SwipePage from '../pages/SwipePage.jsx';
 
 export default function MatchPage() {
 
-  const [dogs, setDogs] = useState([]);
-  useEffect(() => {
-    const fetchDogs = async () => {
-      try {
+  // const [dogs, setDogs] = useState([]);
+  // useEffect(() => {
+  //   const fetchDogs = async () => {
+  //     try {
 
-   const waitDogs = await  fetch('/api/matches/', {
-                method: 'GET',
-            });
-        const dogs = await waitDogs.json();
-        // console.log('Dogs array: ', dogs);
-        setDogs(dogs);
+  //  const waitDogs = await  fetch('/api/matches/', {
+  //               method: 'GET',
+  //           });
+  //       const dogs = await waitDogs.json();
+  //       // console.log('Dogs array: ', dogs);
+  //       setDogs(dogs);
         
-      }
-      catch (err) {
-        console.log('There was an error fetching data: ', err);
-      }
-    };
-    fetchDogs();
-  }, []);
+  //     }
+  //     catch (err) {
+  //       console.log('There was an error fetching data: ', err);
+  //     }
+  //   };
+  //   fetchDogs();
+  // }, []);
 
   // const userMatches = useSelector(state => state.user.matches)
 
@@ -45,9 +45,9 @@ export default function MatchPage() {
   return (
     <div className='flex h-screen'>
       <div className='flex-initial w-3/4'>
-        {/* <SwipePage /> */}
-        <h1>Sample Header</h1>
-        <p>Sample Paragraph</p>
+        <SwipePage />
+        {/* <h1>Sample Header</h1>
+        <p>Sample Paragraph</p> */}
       </div>
       <div className='flex-initial w-1/4 overflow-y-auto'>
         {userMatches.map(match => {
@@ -60,11 +60,11 @@ export default function MatchPage() {
               </div>
               <div className="collapse-content"> 
               {/* Might have to change property of match depending on response from server */}
-                <p>{match.id}</p>
+                <p>{match.username}</p>
                 <p>{match.breed}</p>
                 <p>{match.age}</p>
                 <p>{match.size}</p>
-                <p>{match.sex}</p>
+                <p>{match.gender}</p>
               </div>
             </div>
           )
