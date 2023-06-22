@@ -50,8 +50,10 @@ export default function SignupPage() {
     };
 
     const handleClick = () => {
+        const handleObj = {username, ... values};
+        
         // Check if all of the inputs are submitted, then we fetch
-        if (values.name && values.breed && values.age && values.size && values.sex && values.upload) {
+        if (values.username && values.name && values.breed && values.age && values.size && values.gender && values.image) {
              fetch('/api/dog/', {
                 headers: {
                 'Accept': 'application/json',
@@ -76,7 +78,7 @@ export default function SignupPage() {
                 <input type="text"  name="username" placeholder="Username" className="input input-bordered w-80 max-w-xs text-base" disabled />
                 </div>
                 <div className='my-3'>
-                    <input type="text" name='name' value={name} onChange={handleChange} placeholder="Name" className="input input-bordered input-info w-80 max-w-xs text-base" />
+                    <input type="text" name='name' value={values.name} onChange={handleChange} placeholder="Name" className="input input-bordered input-info w-80 max-w-xs text-base" />
                 </div>
                 <div className='my-3'>
                     <select name='breed' onChange={handleChange} className="select select-info w-80 max-w-xs text-base">
