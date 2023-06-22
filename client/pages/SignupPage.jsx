@@ -60,7 +60,7 @@ export default function SignupPage() {
                 'Content-Type': 'application/json'
                 },
                 method: 'POST',
-                body: JSON.stringify(values)
+                body: JSON.stringify(handleObj)
             })
             .then(res => res.json())
             .then(res => console.log(res))
