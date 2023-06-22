@@ -36,41 +36,42 @@ app.use(session({
 
 // middleware to test if authenticated
 function isAuthenticated(req, res, next) {
-  
-console.log('req.session.user',req.session.user)
-
-  if (req.session.user !== undefined) next()
-  else next('route')
+  console.log('req.session.user is not set',req.session.user)
+  if (req.session.user !== undefined) {
+    console.log('req.session.user',req.session.user)
+    return next()
+  }
+  else {return next('route')}
 }
 
 
 
-app.get('/', (req, res) => {
-  res.redirect('http://localhost:8080/match');
+app.get('/',isAuthenticated ,(req, res) => {
+  res.redirect('http://localhost:8080/matches');
 });
 
-app.get('/', isAuthenticated, (req, res) => {
-  console.log('req.session.user',req.session.user)
-  express.static(path.join(__dirname, '../client/'))
+app.get('/',  (req, res) => {
+  console.log('serving anon ')
+  res.redirect('http://localhost:8080/login');
 });
 
 
 
 
-app.use('/api/dog',dogRoutes);
-app.use('/api/getprofiles', profileRoutes);
-app.use('/api/swipe',swipeRoutes);
-app.use('/api/github', oauth);
+app.use('/dog',dogRoutes);
+app.use('/getprofiles', profileRoutes);
+app.use('/swipe',isAuthenticated,swipeRoutes);
+app.use('/github', oauth);
 
 app.get('/test', (req, res) => {
     res.status(200).sendFile(path.resolve(__dirname, '../test.html'));
 });
 
 
-//s%3A2973e258-2c6c-4cea-96a4-4fac5ce2c823.U0nF6jAmqOA5YlJnK97EfmVkq5VpknIDpi12oJXzbFY
-//s%3A51b9cb55-4adc-4daa-8a3b-03f3467ebb6c.xGdF1CWHHJbamLnjkI%2BR6y8wz4oFngSIgri0QAxh404
-
-
+/**
+ * /image and the test.html file are tests to show how to upload a
+ * file in the server
+ */
 app.post('/image', function(req, res) {
   let sampleFile;
   let uploadPath;
@@ -83,9 +84,6 @@ app.post('/image', function(req, res) {
   sampleFile = req.files.image;
   uploadPath = path.resolve(__dirname, '../public/uploads/', sampleFile.name);
 
-  
-
-
   // Use the mv() method to place the file somewhere on your server
   sampleFile.mv(uploadPath, function(err) {
     if (err)
@@ -94,14 +92,18 @@ app.post('/image', function(req, res) {
     res.send('File uploaded!');
   });
 });
+
+
+
 app.get('/*', (req, res) => {
     res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });
 
 
+app.use((req, res) => {
+  return res.status(404).send('This is not the page you\'re looking for...',req.originalUrl);
+});
 
-
-app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
 
 app.use((err, req, res, next) => {
     const defaultErr = {
