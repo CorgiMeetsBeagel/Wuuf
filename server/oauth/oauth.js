@@ -24,8 +24,7 @@ router.get('/callback', (req, res) => {
       accept: 'application/json'
     }
   }).then((response) => {
-    access_token = response.data.access_token
-    
+    access_token = response.data.access_token;
     res.redirect('/github/success');
   })
 });
@@ -41,14 +40,14 @@ router.get('/success',  function(req, res) {
       Authorization: 'Bearer ' + access_token
     }
   }).then((response) => {
+    req.session.user = response.data.name;
     console.log(response.data);
-    res.redirect('/');
+    res.redirect('localhost:8080/match');
   }).catch((error) => {
     console.log('err',error);
   });
 
   
- console.log('success',access_token);
 
 });
 

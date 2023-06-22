@@ -2,13 +2,16 @@ const express = require('express');
 const controller  = require('../controller/swipeController');
 const router = express.Router();
 
-// router.post('/', controller.createDog, (req, res) => {
-//     res.status(200).send(res.locals.user); 
-// })
+router.get('/',
+    // controller.getAllDogs,
+    (req, res) => {
+        console.log(req.session.user)
+        return res.status(200).json(req.session.user);
+    });
 
 router.post('/',
     controller.swipe,
-    (req, res) => {
+    (req, res) => { 
         return res.status(200).send("res.locals.listOfDogs");
 })
 

@@ -10,10 +10,14 @@ export default function MatchPage() {
   useEffect(() => {
     const fetchDogs = async () => {
       try {
-        const waitDogs = await fetch('http://localhost:3000/api/matches');
+
+   const waitDogs = await  fetch('/api/matches/', {
+                method: 'GET',
+            });
         const dogs = await waitDogs.json();
+        // console.log('Dogs array: ', dogs);
         setDogs(dogs);
-        console.log('Dogs array: ', dogs);
+        
       }
       catch (err) {
         console.log('There was an error fetching data: ', err);
